@@ -22,8 +22,11 @@ def send_email():
     </html>
     """, subtype='html')
 
-    with smtplib.SMTP('ptcpo', 25) as smtp:
+    #with smtplib.SMTP('ptcpo', 25) as smtp:
         #smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
+    #    smtp.send_message(msg)
+
+    with smtplib.SMTP('localhost', 1025) as smtp:
         smtp.send_message(msg)
 
 # --- Load recipients from CSV ---
@@ -47,5 +50,5 @@ for cell in df['Email'].dropna():
     recipients.clear()  #reset recipients so next cell ids can be added in for loop
  
 
-print(f'Sending to: {EMAIL_RECIPIENT}')
+    print(f'Sending to: {EMAIL_RECIPIENT}')
 
