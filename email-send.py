@@ -26,7 +26,7 @@ def send_email():
         #smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
         smtp.send_message(msg)
 
-# --- Load recipients from Excel ---
+# --- Load recipients from CSV ---
 RECIPIENTS_FILE = 'recipients.csv'
  
 df = pd.read_csv(RECIPIENTS_FILE)
