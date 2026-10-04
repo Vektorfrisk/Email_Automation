@@ -1,6 +1,7 @@
 import smtplib
 from email.message import EmailMessage
-import pandas as pd
+from pandas import read_csv as pd_read_csv
+#import pandas as pd
 
 EMAIL_ADDRESS = 'apps-test@ptc.com'
 
@@ -32,7 +33,7 @@ def send_email():
 # --- Load recipients from CSV ---
 RECIPIENTS_FILE = 'recipients.csv'
  
-df = pd.read_csv(RECIPIENTS_FILE)
+df = pd_read_csv(RECIPIENTS_FILE)
  
 recipients = []
 for cell in df['Email'].dropna():
