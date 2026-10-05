@@ -1,7 +1,12 @@
 import smtplib
 from email.message import EmailMessage
+<<<<<<< HEAD
 from pandas import read_csv as pd_read_csv
 #import pandas as pd
+=======
+import pandas as pd
+import math
+>>>>>>> main
 
 EMAIL_ADDRESS = 'apps-test@ptc.com'
 
