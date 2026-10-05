@@ -1,7 +1,6 @@
 import smtplib
 from email.message import EmailMessage
 import pandas as pd
-import math
 
 EMAIL_ADDRESS = 'apps-test@ptc.com'
 
