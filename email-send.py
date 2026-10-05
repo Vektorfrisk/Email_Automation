@@ -34,7 +34,7 @@ def send_email():
 RECIPIENTS_FILE = 'recipients.csv'
  
 df = pd_read_csv(RECIPIENTS_FILE)
- 
+
 recipients = []
 for cell in df['Email'].dropna():
     # A cell may hold several addresses separated by ; or ,
