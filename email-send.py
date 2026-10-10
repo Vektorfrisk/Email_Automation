@@ -1,21 +1,16 @@
 import smtplib
 from email.message import EmailMessage
-<<<<<<< HEAD
-from pandas import read_csv as pd_read_csv
-#import pandas as pd
-=======
 import pandas as pd
 import math
->>>>>>> main
 
 EMAIL_ADDRESS = 'apps-test@ptc.com'
 
 # --- Defining Email function ---
-def send_email():
+def send_email(Address, Recipient):
     msg = EmailMessage()
     msg['Subject'] = 'This is a test email'
-    msg['From'] = EMAIL_ADDRESS
-    msg['To'] = EMAIL_RECIPIENT
+    msg['From'] = Address
+    msg['To'] = Recipient
 
     msg.set_content('This is a plain text email')
 
@@ -52,7 +47,7 @@ for cell in df['Email'].dropna():
         raise SystemExit(f'No email addresses found in {RECIPIENTS_FILE}')
 
     EMAIL_RECIPIENT = ', '.join(recipients)
-    send_email()       #send email per cell (1 cell should be all emailID of 1 customer)
+    send_email(EMAIL_ADDRESS, EMAIL_RECIPIENT)      #send email per cell (1 cell should be all emailID of 1 customer)
     recipients.clear()  #reset recipients so next cell ids can be added in for loop
  
 
