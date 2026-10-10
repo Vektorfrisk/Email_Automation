@@ -1,6 +1,6 @@
 import smtplib
 from email.message import EmailMessage
-from pandas import pandas.read_csv() as pd_read_csv
+from pandas import read_csv as pd_read_csv
 
 
 EMAIL_ADDRESS = 'apps-test@ptc.com'
