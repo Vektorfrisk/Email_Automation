@@ -3,13 +3,12 @@ from email.message import EmailMessage
 from pandas import read_csv as pd_read_csv
 
 
-
 EMAIL_ADDRESS = 'apps-test@ptc.com'
 
 # --- Defining Email function ---
-def send_email(Address, Recipient):
+def send_email(Subject, Address, Recipient):
     msg = EmailMessage()
-    msg['Subject'] = 'This is a test email'
+    msg['Subject'] = Subject
     msg['From'] = Address
     msg['To'] = Recipient
 
@@ -37,9 +36,11 @@ RECIPIENTS_FILE = 'recipients.csv'
 df = pd_read_csv(RECIPIENTS_FILE)
 
 recipients = []
-for cell in df['Email'].dropna():
+
+for email_cell, subject_cell in zip(df['Email'].dropna(), df['Subject'].dropna()):
+    SUBJECT = str(subject_cell).strip()  # Get the subject for the email
     # A cell may hold several addresses separated by ; or ,
-    for address in str(cell).replace(',', ';').split(';'):
+    for address in str(email_cell).replace(',', ';').split(';'):
         address = address.strip()
         if address and address not in recipients:   # skip blanks and duplicates
             recipients.append(address)
@@ -48,7 +49,7 @@ for cell in df['Email'].dropna():
         raise SystemExit(f'No email addresses found in {RECIPIENTS_FILE}')
 
     EMAIL_RECIPIENT = ', '.join(recipients)
-    send_email(EMAIL_ADDRESS, EMAIL_RECIPIENT)      #send email per cell (1 cell should be all emailID of 1 customer)
+    send_email(SUBJECT, EMAIL_ADDRESS, EMAIL_RECIPIENT)      #send email per cell (1 cell should be all emailID of 1 customer)
     recipients.clear()  #reset recipients so next cell ids can be added in for loop
  
 
