@@ -4,6 +4,7 @@ from pandas import read_csv as pd_read_csv
 
 
 EMAIL_ADDRESS = 'apps-test@ptc.com'
+#Email_Body = open('email-body.html', 'r').read()  # Load the HTML email body from a file
 
 # --- Defining Email function ---
 def send_email(Subject, Address, Recipient):
@@ -14,14 +15,7 @@ def send_email(Subject, Address, Recipient):
 
     msg.set_content('This is a plain text email')
 
-    msg.add_alternative("""\
-    <!DOCTYPE html>
-    <html>
-        <body>
-            <h1 style="color:SlateGray;">This is an HTML Email!</h1>
-        </body>
-    </html>
-    """, subtype='html')
+    msg.add_alternative(open('email-body.html', 'r').read(), subtype='html')
 
     #with smtplib.SMTP('ptcpo', 25) as smtp:
         #smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
