@@ -29,9 +29,10 @@ RECIPIENTS_FILE = 'recipients.csv'
  
 df = pd_read_csv(RECIPIENTS_FILE)
 
-recipients = []
+
 
 for name_cell, env_cell, date_cell, time_cell, email_cell in zip(df['Company'], df['Environment'], df['Date'], df['Time'], df['Email'].dropna()):
+    recipients = []
     SUBJECT = f"[System Maintenance] :: {str(date_cell).strip()} {str(time_cell).strip()} || {str(name_cell).strip()} | Servigistics | {str(env_cell).strip()}"
     # A cell may hold several addresses separated by ; or ,
     for address in str(email_cell).replace(',', ';').split(';'):
@@ -44,7 +45,6 @@ for name_cell, env_cell, date_cell, time_cell, email_cell in zip(df['Company'], 
 
     EMAIL_RECIPIENT = ', '.join(recipients)
     send_email(SUBJECT, EMAIL_ADDRESS, EMAIL_RECIPIENT)      #send email per cell (1 cell should be all emailID of 1 customer)
-    recipients.clear()  #reset recipients so next cell ids can be added in for loop
  
 
     print(f'Sending to: {EMAIL_RECIPIENT}')
