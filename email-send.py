@@ -1,13 +1,13 @@
 import smtplib
 from email.message import EmailMessage
 from pandas import read_csv as pd_read_csv
-
+from string import Template
 
 EMAIL_ADDRESS = 'apps-test@ptc.com'
 #Email_Body = open('email-body.html', 'r').read()  # Load the HTML email body from a file
 
 # --- Defining Email function ---
-def send_email(Subject, Address, Recipient):
+def send_email(Subject, Address, Recipient, Name, Environment, Date, Time):
     msg = EmailMessage()
     msg['Subject'] = Subject
     msg['From'] = Address
@@ -15,7 +15,16 @@ def send_email(Subject, Address, Recipient):
 
     msg.set_content('This is a plain text email')
 
-    msg.add_alternative(open('email-body.html', 'r').read(), subtype='html')
+    with open('email-body.html', 'r') as html:
+        template = Template(html.read())
+
+    html_body = template.safe_substitute(
+        client_name = Name,
+        environment = Environment,
+        date = Date,
+        time = Time
+    )
+    msg.add_alternative(html_body, subtype='html')
 
     #with smtplib.SMTP('ptcpo', 25) as smtp:
         #smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
@@ -44,7 +53,7 @@ for name_cell, env_cell, date_cell, time_cell, email_cell in zip(df['Company'], 
         raise SystemExit(f'No email addresses found in {RECIPIENTS_FILE}')
 
     EMAIL_RECIPIENT = ', '.join(recipients)
-    send_email(SUBJECT, EMAIL_ADDRESS, EMAIL_RECIPIENT)      #send email per cell (1 cell should be all emailID of 1 customer)
+    send_email(SUBJECT, EMAIL_ADDRESS, EMAIL_RECIPIENT, name_cell, env_cell, date_cell, time_cell)      #send email per cell (1 cell should be all emailID of 1 customer)
  
 
     print(f'Sending to: {EMAIL_RECIPIENT}')
