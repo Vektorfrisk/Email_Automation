@@ -1,3 +1,3 @@
-﻿Company,Subject,Email
-PTC,This is a test,spatekar@ptc.com;
-Self,This is also a test,shreyaspatekar29@gmail.com
+﻿Company,Environment,Date,Time,Email
+PTC,Test,30-Oct,1:00 AM EST,spatekar@ptc.com;
+Self,Prod,31-Oct,1:00 AM EST,shreyaspatekar29@gmail.com

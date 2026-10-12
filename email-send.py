@@ -31,8 +31,8 @@ df = pd_read_csv(RECIPIENTS_FILE)
 
 recipients = []
 
-for email_cell, subject_cell in zip(df['Email'].dropna(), df['Subject'].dropna()):
-    SUBJECT = str(subject_cell).strip()  # Get the subject for the email
+for name_cell, env_cell, date_cell, time_cell, email_cell in zip(df['Company'], df['Environment'], df['Date'], df['Time'], df['Email'].dropna()):
+    SUBJECT = f"[System Maintenance] :: {str(date_cell).strip()} {str(time_cell).strip()} || {str(name_cell).strip()} | Servigistics | {str(env_cell).strip()}"
     # A cell may hold several addresses separated by ; or ,
     for address in str(email_cell).replace(',', ';').split(';'):
         address = address.strip()
